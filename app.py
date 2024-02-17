@@ -28,6 +28,7 @@ def upload_file():
         pdf_text = extract_text_from_pdf(file)
 
         # Process text with GPT API (implementation required)
+        print("Getting Mixtral Output")
         generated_text = str(gen_gpt_output(pdf_text))
 
         print(generated_text)
@@ -38,12 +39,15 @@ def upload_file():
         print(narrations)
 
         # # generating scene images from extracted scene texts
+        print("Generating images")
         gen_scene_images(narrations)
 
         # # generating Text to Speech narration from extraced narrations
+        print("generating audio: ")
         for index, narration in enumerate(narrations):
+            print(f"{index} out of {len(narrations)}")
             audio = text_to_voice(narration)
-            write_to_file(audio, 'audio{}.wav'.format(index))
+            write_to_file(audio, 'audio{}'.format(index))
 
         # # stitching audio clips together
         stitch_audio()
@@ -52,7 +56,7 @@ def upload_file():
         overlay_images()
 
         # # stitch the entire move together
-        stitch_movie("./audio/stitched_audio.wav", "overlayed.mp4")
+        stitch_movie("./audio/stitched_audio.mp3", "overlayed.mp4")
 
         # # Return the generated text
         return send_file('./result/output.mp4', mimetype='video/mp4')

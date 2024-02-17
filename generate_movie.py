@@ -12,7 +12,7 @@ from io import BytesIO
 def parse_generated_output(text):
     # Find all scenes and narrations
     # Parse the JSON string
-    if text.endswith("}}}"):
+    if text.endswith("}\n}}"):
         # Remove one '}' character from the end of the string
         text = text[:-1]
     scenes = json.loads(text)
@@ -25,6 +25,7 @@ def parse_generated_output(text):
 
     # Print the extracted scenes and narrations
     return narrations
+
 
 
 def gen_scene_images(scene_texts):
@@ -76,7 +77,7 @@ def extract_lengths_of_images():
         if image_file.startswith("image"):  # Assuming image files are named image0, image1, etc.
             image_num = image_file[len("image"):].replace(".png", "")
             print(image_num)
-            audio_file = f"audio{image_num}.wav"
+            audio_file = f"audio{image_num}.mp3"
 
             # Check if corresponding audio file exists
             audio_path = os.path.join(audio_dir, audio_file)
@@ -111,17 +112,17 @@ def stitch_audio():
     from pydub import AudioSegment
     audio_dir = './audio'
     def extract_number(file_name):
-        return int(file_name.split('audio')[1].split('.wav')[0])
+        return int(file_name.split('audio')[1].split('.mp3')[0])
 
     # Get a sorted list of audio file names, ensures in-order iteration
-    audio_files = sorted([file_name for file_name in os.listdir(audio_dir) if file_name.startswith("audio") and file_name.endswith(".wav")], key=extract_number)
+    audio_files = sorted([file_name for file_name in os.listdir(audio_dir) if file_name.startswith("audio") and file_name.endswith(".mp3")], key=extract_number)
 
     sounds = []
     # Iterate over the sorted list of audio files
     for file_name in audio_files:
         # Full path to the audio file
         audio_path = os.path.join(audio_dir, file_name)
-        sound = AudioSegment.from_file(audio_path, format="wav")
+        sound = AudioSegment.from_file(audio_path, format="mp3")
         sounds.append(sound)
 
     runningSound = sounds[0] + sounds[1]
@@ -131,7 +132,8 @@ def stitch_audio():
 
 
     # simple export
-    file_handle = runningSound.export("./audio/stitched_audio.wav", format="wav")
+    file_handle = runningSound.export("./audio/stitched_audio.mp3", format="mp3")
+# stitch_audio()
 
 
 def stitch_movie(audioPath, videoPath):

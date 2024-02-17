@@ -15,7 +15,7 @@ def text_to_voice(input) -> bytes | Iterable[bytes]:
 
 def write_to_file(audio, output):
     output_folder = 'audio'
-    audio_filename = '{}.wav'.format(output)
+    audio_filename = '{}.mp3'.format(output)
     audio_file_path = os.path.join(output_folder, audio_filename)
 
     with open(audio_file_path, "wb") as audio_file:
