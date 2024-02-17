@@ -1,5 +1,6 @@
 import moviepy.editor as mp
 import re
+import json
 import requests
 import os
 import base64
@@ -10,19 +11,21 @@ from io import BytesIO
 # scenes, narrarations
 def parse_generated_output(text):
     # Find all scenes and narrations
-    scene_matches = re.findall(r'\[(Scene \d+: .*?|.*?)\]', text)
-    narration_matches = re.findall(r'Narrator: "(.*?)"', text, re.DOTALL)
+    # Parse the JSON string
+    if text.endswith("}}}"):
+        # Remove one '}' character from the end of the string
+        text = text[:-1]
+    scenes = json.loads(text)
 
-    # Separate scenes and narrations
-    scenes = [match for match in scene_matches]
-    narrations = [match for match in narration_matches]
+    # Extract the content of each scene into a list
+    narrations = [scene["Content"] for scene in scenes.values()]
 
-
-    print(narration_matches)
-
+    # Print the list of content
+    # print(len(narrations))
 
     # Print the extracted scenes and narrations
-    return scenes, narrations
+    return narrations
+
 
 def gen_scene_images(scene_texts):
     # call stable diffusion endpoint
@@ -36,7 +39,7 @@ def gen_scene_images(scene_texts):
 
     for i, text in enumerate(scene_texts):
         data = {
-        "prompt": "Imagine the character is a cartoon animated stick figure, generate a image that describes the character in the following scene : " + text,
+        "prompt": "Generate a concrete image that succintly describes the following scene, focusing on specific items, things, objects, or concepts mentioned : " + text,
         "num_steps": 1,
         }
 
@@ -56,8 +59,6 @@ def gen_scene_images(scene_texts):
         img.show()
         img.save(f"./images/image{i}.png")
 
-#def gen_speech_audio(narrations):
-    # call elevenlabs api to save to audio folder, naming convention is index of narrations list: audio0, audio1, ...
 
 # now, we have audios and images saved, we can check audio clip length to determine when to show each image
 # returns a list of the number of seconds (float) that each image should be on for

@@ -28,35 +28,34 @@ def upload_file():
         pdf_text = extract_text_from_pdf(file)
 
         # Process text with GPT API (implementation required)
-        generated_text = gen_gpt_output(pdf_text)
+        generated_text = str(gen_gpt_output(pdf_text))
 
         print(generated_text)
 
         # isolate scenes and narrations into lists
-        # scenes, narrations = parse_generated_output(generated_text)
+        narrations = parse_generated_output(generated_text + "}")
 
-        # print(scenes)
-        # print(narrations)
+        print(narrations)
 
         # # generating scene images from extracted scene texts
-        # gen_scene_images(scenes)
+        gen_scene_images(narrations)
 
         # # generating Text to Speech narration from extraced narrations
-        # for index, narration in enumerate(narrations):
-        #     audio = text_to_voice(narration)
-        #     write_to_file(audio, 'audio{}.wav'.format(index))
+        for index, narration in enumerate(narrations):
+            audio = text_to_voice(narration)
+            write_to_file(audio, 'audio{}.wav'.format(index))
 
         # # stitching audio clips together
-        # stitch_audio()
+        stitch_audio()
 
         # # overlay images on base video TODO: allow for changing of base video, movement of image to different spots
-        # overlay_images()
+        overlay_images()
 
         # # stitch the entire move together
-        # stitch_movie("./audio/stitched_audio.wav", "overlayed.mp4")
+        stitch_movie("./audio/stitched_audio.wav", "overlayed.mp4")
 
         # # Return the generated text
-        # return send_file('./result/output.mp4', mimetype='video/mp4')
+        return send_file('./result/output.mp4', mimetype='video/mp4')
     else:
         return jsonify({'error': 'Uploaded file is not a PDF'})
 
