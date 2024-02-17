@@ -31,35 +31,34 @@ def upload_file():
         print("Getting Mixtral Output")
         generated_text = str(gen_gpt_output(pdf_text))
 
-        print(generated_text)
+        sydney_prompt = "hey hackers!! I hope you had an amazing time at Penn's very first ever generative AI Hackathon!! Thank you contraryyy!!! Today I'll talking about leveraged buyouts!"
 
         # isolate scenes and narrations into lists
-        narrations = parse_generated_output(generated_text + "}")
+        narrations = parse_generated_output(generated_text)
+        narrations.insert(0, sydney_prompt)
 
-        print(narrations)
-
-        # # generating scene images from extracted scene texts
+        # generating scene images from extracted scene texts
         print("Generating images")
         gen_scene_images(narrations)
 
-        # # generating Text to Speech narration from extraced narrations
+        # generating Text to Speech narration from narrations
         print("generating audio: ")
         for index, narration in enumerate(narrations):
             print(f"{index} out of {len(narrations)}")
             audio = text_to_voice(narration)
             write_to_file(audio, 'audio{}'.format(index))
 
-        # # stitching audio clips together
+        # stitching audio clips together
         stitch_audio()
 
-        # # overlay images on base video TODO: allow for changing of base video, movement of image to different spots
+        # overlay images on base video TODO: allow for changing of base video, movement of image to different spots
         overlay_images()
 
         # # stitch the entire move together
         stitch_movie("./audio/stitched_audio.mp3", "overlayed.mp4")
 
         # # Return the generated text
-        return send_file('./result/output.mp4', mimetype='video/mp4')
+        # return send_file('./result/output.mp4', mimetype='video/mp4')
     else:
         return jsonify({'error': 'Uploaded file is not a PDF'})
 

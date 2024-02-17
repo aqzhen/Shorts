@@ -23,7 +23,7 @@ def gen_gpt_output(input_text):
     '''
 
     response = client.chat.completions.create(
-        model="mistral 7B",
+        model="Mixtral 8x7B Instruct TRT-LLM Weights Only Quantized",
         messages=[
             {"role":"user", "content": "You are a helpful assistant that, when given a large text input prompt, converts the prompt into a number of digestible, bite-sized, TikTok-type video script scenes with enthusiasm and wit, summarizing at a high level. Make each scene at most two sentences. Return the output in json format. Here's an example, you must follow it strictly in json structure using Scenes as keys and the content as values:" + prompt 
     },

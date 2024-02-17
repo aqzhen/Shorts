@@ -6,6 +6,7 @@ import os
 import base64
 from PIL import Image
 from io import BytesIO
+import ast
 
 # need to parse gpt output to list format of
 # scenes, narrarations
@@ -25,6 +26,10 @@ def parse_generated_output(text):
 
     # Print the extracted scenes and narrations
     return narrations
+
+    # narrations = ast.literal_eval(text)
+    # return narrations
+    
 
 
 
@@ -144,6 +149,3 @@ def stitch_movie(audioPath, videoPath):
     final = video1.set_audio(audio)
     final.write_videofile("result/output.mp4")
 
-
-overlay_images()
-stitch_movie('./audio/stitched_audio.mp3', 'overlayed.mp4')
