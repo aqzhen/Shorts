@@ -1,0 +1,3 @@
+The typical intuitive examples of induction are:
+I Suppose I have a line of dominoes. If I know I can knock down the first domino, and I know that if the k-th domino falls, it will knock over the k + 1-th domino, then all the dominoes will fall.
+I Suppose I have a ladder. If I know that I can get on the ladder, and I know that for each step of the ladder it is possible to get to the next step, then I can climb the whole ladder.
