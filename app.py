@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import PyPDF2
+from generate_gpt_text import gen_gpt_output
 
 app = Flask(__name__)
 
@@ -25,7 +26,7 @@ def upload_file():
         pdf_text = extract_text_from_pdf(file)
 
         # Process text with GPT API (implementation required)
-        generated_text = generate_text_with_gpt(pdf_text)
+        generated_text = gen_gpt_output(pdf_text)
 
         # Return the generated text
         return jsonify({'generated_text': generated_text})
@@ -40,13 +41,6 @@ def extract_text_from_pdf(file):
         text += pdf_reader.pages[page_num].extract_text()
     return text
 
-
-def generate_text_with_gpt(input_text):
-    # Call GPT API and get generated text (implementation required)
-    # Replace this placeholder code with actual API call
-    # Need to figure out a way to parse gpt output into each of the individual shorts' text
-
-    return "Generated text from GPT API"
 
 
 if __name__ == '__main__':
