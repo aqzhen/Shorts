@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,9 @@
     <title>PDF Uploader</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e9eff1; /* Lighter, modern background */
-            background-image: linear-gradient(to right top, #a5f3eb, #ace9f5, #b8def9, #c4d4fb, #d2c9fc); /* Modern background gradient */
+            font-family: 'Helvetica', sans-serif;
+            background-color: #e9eff1;
+            background-image: linear-gradient(to right top, #a5f3eb, #ace9f5, #b8def9, #c4d4fb, #d2c9fc);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -18,45 +19,89 @@
         }
         .container {
             background: white;
-            padding: 15px; /* Reduced padding */
-            border-radius: 8px; /* More modern border-radius */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Smoother box shadow */
-            max-width: 400px; /* Limiting max width for better responsiveness */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
         }
         h1 {
             color: #333;
             text-align: center;
-            font-size: 24px; /* Reduced size for more pleasing look */
+            font-size: 18px;
+        }
+        h2 {
+            color: #154c79;
+            text-align: center;
+            font-size: 36px;
         }
         form {
             display: flex;
             flex-direction: column;
-            gap: 8px; /* Reduced gap */
+            gap: 8px;
         }
         input[type="file"] {
-            border: 1px solid #ccc; /* Lighter border */
-            padding: 8px; /* Reduced padding */
-            border-radius: 4px; /* More modern border-radius */
-            display: block; /* Ensures no overflow */
-            width: calc(100% - 18px); /* Adjust width to prevent overflow */
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 4px;
+            display: block;
+            width: calc(100% - 18px);
         }
         button {
-            background: linear-gradient(145deg, #6cace4, #4a90e2); /* Updated gradient to match the background */
+            background: linear-gradient(145deg, #6cace4, #4a90e2);
             color: white;
-            padding: 8px 12px; /* Reduced padding for smaller size */
+            padding: 8px 12px;
             border: none;
-            border-radius: 4px; /* Smooth, modern border-radius */
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 14px; /* Smaller font size for a more refined look */
-            transition: background 0.3s ease; /* Smooth transition for hover effect */
+            font-size: 14px;
+            transition: background 0.3s ease;
         }
         button:hover {
-            background: linear-gradient(145deg, #5a9bd4, #3a80d2); /* Darker gradient for hover effect */
+            background: linear-gradient(145deg, #5a9bd4, #3a80d2);
+        }
+        .select-container {
+            margin-bottom: 20px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+                              linear-gradient(135deg, gray 50%, transparent 50%),
+                              linear-gradient(to right, #f9f9f9, #f9f9f9);
+            background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
+            background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+        select:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <h2>Studi</h2>
+        <h1>Select a narrator</h1>
+        <div class="select-container">
+<!--            <label for="narrator">Select Narrator:</label>-->
+            <select id="narrator" name="narrator">
+                <option value="david_attenborough">David Attenborough</option>
+                <option value="rajiv_gandhi">Rajiv Gandhi</option>
+                <option value="sydney_sweeney">Sydney Sweeney</option>
+                <option value="joe_rogan">Joe Rogan</option>
+            </select>
+        </div>
         <h1>Upload a PDF file</h1>
         <form method="POST" enctype="multipart/form-data" action="/upload">
             <input type="file" name="file" accept=".pdf">
