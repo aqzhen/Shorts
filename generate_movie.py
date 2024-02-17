@@ -67,6 +67,8 @@ def extract_lengths_of_images():
     lengths = []
     import os
     import wave
+    from mutagen.mp3 import MP3
+
 
     # Path to the directory containing image and audio files
     image_dir = "./images"
@@ -83,9 +85,9 @@ def extract_lengths_of_images():
             audio_path = os.path.join(audio_dir, audio_file)
             if os.path.isfile(audio_path):
                 # Open audio file and get its duration
-                with wave.open(audio_path, "rb") as audio_wave:
-                    audio_duration = audio_wave.getnframes() / audio_wave.getframerate()
-                    print(f"Duration of {audio_file}: {audio_duration} seconds")
+                    audio = MP3(audio_path)
+                    audio_duration = audio.info.length
+                    print(audio_duration)
                     lengths.append(audio_duration)
             else:
                 print(f"No corresponding audio file found for {image_file}")
@@ -141,3 +143,7 @@ def stitch_movie(audioPath, videoPath):
     video1 = mp.VideoFileClip(videoPath) # path to video with image overlays
     final = video1.set_audio(audio)
     final.write_videofile("result/output.mp4")
+
+
+overlay_images()
+stitch_movie('./audio/stitched_audio.mp3', 'overlayed.mp4')
