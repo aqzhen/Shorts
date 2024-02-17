@@ -1,0 +1,4 @@
+A binary tree is a tree such that every vertex has degree at most 3.
+Usually we consider the tree to be rooted at some root vertex r.
+The height of a binary tree is the number of edges in the longest path from the root node to a leaf.
+Also, instead of considering the neighbors of vertices in a binary tree, we normally call them the left/right children.

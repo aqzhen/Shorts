@@ -1,18 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Uploader</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9eff1; /* Lighter, modern background */
+            background-image: linear-gradient(to right top, #a5f3eb, #ace9f5, #b8def9, #c4d4fb, #d2c9fc); /* Modern background gradient */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 15px; /* Reduced padding */
+            border-radius: 8px; /* More modern border-radius */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Smoother box shadow */
+            max-width: 400px; /* Limiting max width for better responsiveness */
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 24px; /* Reduced size for more pleasing look */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Reduced gap */
+        }
+        input[type="file"] {
+            border: 1px solid #ccc; /* Lighter border */
+            padding: 8px; /* Reduced padding */
+            border-radius: 4px; /* More modern border-radius */
+            display: block; /* Ensures no overflow */
+            width: calc(100% - 18px); /* Adjust width to prevent overflow */
+        }
+        button {
+            background: linear-gradient(145deg, #6cace4, #4a90e2); /* Updated gradient to match the background */
+            color: white;
+            padding: 8px 12px; /* Reduced padding for smaller size */
+            border: none;
+            border-radius: 4px; /* Smooth, modern border-radius */
+            cursor: pointer;
+            font-size: 14px; /* Smaller font size for a more refined look */
+            transition: background 0.3s ease; /* Smooth transition for hover effect */
+        }
+        button:hover {
+            background: linear-gradient(145deg, #5a9bd4, #3a80d2); /* Darker gradient for hover effect */
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Upload a PDF file</h1>
-    <form method="POST" enctype="multipart/form-data" action="/upload">
-        <input type="file" name="file" accept=".pdf">
-        <button type="submit">Upload</button>
-    </form>
+    <div class="container">
+        <h1>Upload a PDF file</h1>
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file" accept=".pdf">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
 </body>
-
 </html>
