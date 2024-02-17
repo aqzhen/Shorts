@@ -5,8 +5,8 @@ from elevenlabs import Voice, VoiceSettings, generate, voices, play, stream
 import os
 
 def text_to_voice(input) -> bytes | Iterable[bytes]:
-    # client = ElevenLabs(api_key="6bdd0a207a431564f4075147c58d5caf")
-    os.environ["ELEVEN_API_KEY"] = "6bdd0a207a431564f4075147c58d5caf"
+    # client = ElevenLabs(api_key="<key>")
+    os.environ["ELEVEN_API_KEY"] = "<key>"
 
     input_folder = 'input-text'
 
@@ -18,9 +18,12 @@ def text_to_voice(input) -> bytes | Iterable[bytes]:
       input_text = text_file.read()
 
     return generate(text=input_text,
-                     api_key='6bdd0a207a431564f4075147c58d5caf',
-                     voice=Voice(voice_id='EXAVITQu4vr4xnSDxMaL',
-                                 settings=VoiceSettings(stability=0.71, similarity_boost=0.5, style=0.0, use_speaker_boost=True)),
+                     api_key='<key>',
+                     voice=Voice(voice_id='ZJnUinrvqMena46sK7C7',
+                                 settings=VoiceSettings(stability=0.35,
+                                                        similarity_boost=0.9,
+                                                        style=0.0,
+                                                        use_speaker_boost=True)),
                      model="eleven_multilingual_v2")
 
 def write_to_file(audio, output):
@@ -31,8 +34,8 @@ def write_to_file(audio, output):
     with open(audio_file_path, "wb") as audio_file:
         audio_file.write(audio)
 
-audio = text_to_voice('induction')
+audio = text_to_voice('trees')
 play(audio)
-write_to_file(audio, 'induction')
+write_to_file(audio, 'trees')
 
 
